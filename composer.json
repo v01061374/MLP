@@ -1,6 +1,6 @@
 {
     "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "description": "Clothes Store",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
