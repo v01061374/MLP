@@ -1,0 +1,84 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "photo",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "integer"
+    },
+    {
+      "name": "category_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "store_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "offPercent",
+      "type": "float"
+    },
+    {
+      "name": "inStock",
+      "type": "integer"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "category_id",
+      "references": "id",
+      "on": "categories",
+      "onDelete": "cascade"
+    },
+    {
+      "column": "store_id",
+      "references": "id",
+      "on": "stores",
+      "onDelete": "cascade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "category",
+      "type": "belongsTo",
+      "class": "App\\Category"
+    },
+    {
+      "name": "store",
+      "type": "belongsTo",
+      "class": "App\\Store"
+    },
+    {
+      "name": "photos",
+      "type": "hasMany",
+      "class": "App\\Photo"
+    }
+  ],
+  "validations": [
+    {
+      "field": "title",
+      "rules": "required|max:40"
+    },
+    {
+      "field": "store_id",
+      "rules": "required"
+    },
+    {
+      "field": "inStock",
+      "rules": "required"
+    }
+
+
+
+  ]
+}

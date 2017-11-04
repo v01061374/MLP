@@ -19,6 +19,42 @@
     {
       "name":"owner_id",
       "type":"integer#unsigned"
+    },
+    {
+      "name":"saturday",
+      "type":"boolean"
+    },
+    {
+      "name":"sunday",
+      "type":"boolean"
+    },
+    {
+      "name":"monday",
+      "type":"boolean"
+    },
+    {
+      "name":"tuesday",
+      "type":"boolean"
+    },
+    {
+      "name":"wednesday",
+      "type":"boolean"
+    },
+    {
+      "name":"thursday",
+      "type":"boolean"
+    },
+    {
+      "name":"friday",
+      "type":"boolean"
+    },
+    {
+      "name":"openingHour",
+      "type":"integer"
+    },
+    {
+      "name": "closingHour",
+      "type": "integer"
     }
   ],
   "foreign_keys": [
@@ -27,7 +63,7 @@
       "references": "id",
       "on": "users",
       "onDelete": "cascade",
-      "onUpdate": "casacade"
+      "onUpdate": "cascade"
     }
   ],
   "relationships": [
@@ -56,6 +92,42 @@
     },
     {
       "field": "owner_id",
+      "rules": "required"
+    },
+    {
+      "field": "saturday",
+      "rules": "required"
+    },
+    {
+      "field": "sunday",
+      "rules": "required"
+    },
+    {
+      "field": "monday",
+      "rules": "required"
+    },
+    {
+      "field": "tuesday",
+      "rules": "required"
+    },
+    {
+      "field": "wednesday",
+      "rules": "required"
+    },
+    {
+      "field": "thursday",
+      "rules": "required"
+    },
+    {
+      "field": "friday",
+      "rules": "required"
+    },
+    {
+      "field": "openingHour",
+      "rules": "required"
+    },
+    {
+      "field": "closingHour",
       "rules": "required"
     }
 

@@ -13,6 +13,10 @@ Route::group([
     $router->resource('customers', CustomerController::class);
     $router->resource('addresses', AddressController::class);
     $router->resource('stores', StoreController::class);
+    $router->resource('categories', CategoryController::class);
+    $router->resource('products', ProductController::class);
+    $router->resource('photos', PhotoController::class);
+
 
 
 });

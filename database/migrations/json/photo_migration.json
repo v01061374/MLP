@@ -1,0 +1,39 @@
+{
+  "fields": [
+    {
+      "name": "photo",
+      "type": "string"
+    },
+    {
+      "name": "product_id",
+      "type": "integer#unsigned"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "product_id",
+      "references": "id",
+      "on": "products",
+      "onDelete": "cascade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "product",
+      "type": "belongsTo",
+      "class": "App\\Product"
+    }
+  ],
+  "validations": [
+    {
+      "field": "photo",
+      "rules": "required"
+    },
+    {
+      "field": "product_id",
+      "rules": "required"
+    }
+
+
+  ]
+}

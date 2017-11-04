@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateStoresTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,12 @@ class CreateStoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('address');
-            $table->double('lat');
-            $table->double('lng');
-            $table->integer('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('casacade');
+            $table->string('photo')->nullable();
+            $table->integer('parent_id')->nullable()->unsigned();
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateStoresTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stores');
+        Schema::drop('categories');
     }
 }

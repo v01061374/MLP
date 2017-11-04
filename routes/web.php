@@ -20,3 +20,7 @@ Route::resource('posts', 'PostsController');
 Route::resource('customers', 'CustomersController');
 Route::resource('addresses', 'AddressesController');
 Route::resource('stores', 'StoresController');
+Route::resource('stores', 'StoresController');
+Route::resource('categories', 'CategoriesController');
+Route::resource('products', 'ProductsController');
+Route::resource('photos', 'PhotosController');
