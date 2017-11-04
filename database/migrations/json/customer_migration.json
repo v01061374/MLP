@@ -1,0 +1,39 @@
+{
+  "fields": [
+    {
+      "name": "firstName",
+      "type": "string"
+    },
+    {
+      "name": "lastName",
+      "type": "string"
+    },
+    {
+      "name": "email",
+      "type": "string"
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    }
+  ],
+  "validations": [
+    {
+      "field": "firstName",
+      "rules": "required|max:40"
+    },
+    {
+      "field": "lastName",
+      "rules": "required|max:40"
+    },
+    {
+      "field": "email",
+      "rules": "required|email_address"
+    },
+    {
+      "field": "phone",
+      "rules": "required"
+    }
+
+  ]
+}

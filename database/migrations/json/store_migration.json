@@ -1,0 +1,64 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "address",
+      "type": "text"
+    },
+    {
+      "name": "lat",
+      "type": "double"
+    },
+    {
+      "name": "lng",
+      "type": "double"
+    },
+    {
+      "name":"owner_id",
+      "type":"integer#unsigned"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "owner_id",
+      "references": "id",
+      "on": "users",
+      "onDelete": "cascade",
+      "onUpdate": "casacade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "owner",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "title",
+      "rules": "required|max:40"
+    },
+    {
+      "field": "address",
+      "rules": "required"
+    },
+    {
+      "field": "lat",
+      "rules": "required"
+    },
+    {
+      "field": "lng",
+      "rules": "required"
+    },
+    {
+      "field": "owner_id",
+      "rules": "required"
+    }
+
+
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "name": "country",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "type": "string"
+    },
+    {
+      "name": "details",
+      "type": "text"
+    },
+    {
+      "name":"customer_id",
+      "type":"integer#unsigned"
+    }
+  ],
+
+  "validations": [
+    {
+      "field": "country",
+      "rules": "required|max:40"
+    },
+    {
+      "field": "city",
+      "rules": "required|max:40"
+    }
+
+  ]
+}
