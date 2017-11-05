@@ -1,0 +1,58 @@
+{
+  "fields": [
+    {
+      "name": "cart_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "addressDetails",
+      "type": "text"
+    },
+    {
+      "name": "postalCode",
+      "type": "text"
+    },
+    {
+      "name": "totalPrice",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "shippingMethod_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "isPaid",
+      "type": "boolean"
+    },
+    {
+      "name": "isSent",
+      "type": "boolean"
+    },
+    {
+      "name": "isDelivered",
+      "type": "boolean"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "customer_id",
+      "references": "id",
+      "on": "customers",
+      "onDelete": "cascade",
+      "onUpdate": "cascade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "customer",
+      "type": "belongsTo",
+      "class": "App\\Customer"
+    }
+  ],
+  "validations": [
+    {
+      "field": "customer_id",
+      "rules": "required"
+    }
+  ]
+}
