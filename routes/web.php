@@ -27,3 +27,5 @@ Route::resource('stores', 'StoresController');
 Route::resource('categories', 'CategoriesController');
 Route::resource('products', 'ProductsController');
 Route::resource('photos', 'PhotosController');
+Route::resource('carts', 'CartsController');
+Route::resource('cart-items', 'CartItemsController');

@@ -1,0 +1,46 @@
+{
+  "fields": [
+    {
+      "name": "product_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "quantity",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "cart_id",
+      "type": "integer#unsigned"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "product_id",
+      "references": "id",
+      "on": "products",
+      "onDelete": "cascade",
+      "onUpdate": "cascade"
+    },
+    {
+      "column": "cart_id",
+      "references": "id",
+      "on": "carts",
+      "onDelete": "cascade",
+      "onUpdate": "cascade"
+    }
+  ],
+  "validations": [
+    {
+      "field": "product_id",
+      "rules": "required"
+    },
+    {
+      "field": "cart_id",
+      "rules": "required"
+    },
+    {
+      "field": "quantity",
+      "rules": "required|min:1"
+    }
+  ]
+}
