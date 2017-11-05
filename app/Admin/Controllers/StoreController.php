@@ -81,6 +81,7 @@ class StoreController extends Controller
                 $owner = Administrator::all()->where('id', $owner_id)->first();
                 return $owner['name'] . "";
             });
+            $grid->column('isVerified', 'Verified');
             $grid->created_at();
             $grid->updated_at();
         });
@@ -197,6 +198,10 @@ class StoreController extends Controller
             //should be changed to Sellers Or all
             $users= Administrator::all()->pluck('name', 'id');
             $form->select('owner_id','Owner')->options($users);
+            $form->radio('isVerified', 'Status')->options([
+                true => 'Verified',
+                false => 'Not Verified'
+            ]);
         });
     }
 }

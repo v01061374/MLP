@@ -78,6 +78,7 @@ class CategoryController extends Controller
             $grid->photo()->image();
             $grid->created_at();
             $grid->updated_at();
+
         });
     }
 

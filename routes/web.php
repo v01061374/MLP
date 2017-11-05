@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $category = \App\Category::with('subcategories');
+//    var_dump($category);
+
 });
 
 Route::resource('addresses', 'AddressesController');

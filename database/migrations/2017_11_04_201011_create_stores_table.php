@@ -31,6 +31,7 @@ class CreateStoresTable extends Migration
             $table->foreign('owner_id')->references('id')->on('users')
                 //                ->onDelete('cascade')->onUpdate('cascade')
             ;
+            $table->boolean('isVerified')->default(false);
             $table->timestamps();
         });
     }

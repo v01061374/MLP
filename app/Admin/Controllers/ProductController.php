@@ -97,7 +97,7 @@ class ProductController extends Controller
             $form->textarea('description');
             $form->number('offPercent');
             $categories = Category::all()->pluck('title', 'id');
-            $form->select('category_id', 'Category')->options($categories);
+            $form->multipleSelect('categories')->options($categories);
             $stores = Store::all()->pluck('title', 'id');
             $form->select('store_id', 'Store')->options($stores);
             $form->number('inStock', 'Available Quantity');

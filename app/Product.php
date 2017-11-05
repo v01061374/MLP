@@ -31,4 +31,7 @@ class Product extends Model
     {
         return $this->hasMany('App\Photo', 'product_id');
     }
+    public function categories(){
+        return $this->belongsToMany('App\Category', 'category_product', 'product_id', 'category_id');
+    }
 }

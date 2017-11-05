@@ -28,4 +28,9 @@ class Category extends Model
     protected $fillable = ['title', 'photo', 'parent_id'];
 
     //add parent and children relations
+    public function subcategories(){
+//        $this->hasMany('App\Category', 'parent_id', 'id');
+        return $this->hasManyThrough('App\Category','App\Category','parent_id', 'parent_id');
+    }
+
 }
