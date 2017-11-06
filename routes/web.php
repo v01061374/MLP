@@ -29,3 +29,8 @@ Route::resource('products', 'ProductsController');
 Route::resource('photos', 'PhotosController');
 Route::resource('carts', 'CartsController');
 Route::resource('cart-items', 'CartItemsController');
+Route::resource('shipping-method', 'ShippingMethodController');
+Route::resource('shipping-method', 'ShippingMethodController');
+Route::resource('shipping-method', 'ShippingMethodController');
+Route::resource('orders', 'OrdersController');
+Route::resource('shipping-methods', 'ShippingMethodsController');

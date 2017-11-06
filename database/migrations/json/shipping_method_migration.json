@@ -1,0 +1,23 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "integer#unsigned"
+    }
+  ],
+
+  "validations": [
+    {
+      "field": "title",
+      "rules": "required"
+    },
+    {
+      "field": "price",
+      "rules": "required|min:1"
+    }
+  ]
+}

@@ -17,6 +17,8 @@ Route::group([
     $router->resource('products', ProductController::class);
     $router->resource('photos', PhotoController::class);
     $router->resource('carts', CartController::class);
+    $router->resource('orders', OrderController::class);
+    $router->resource('shippingMethods', ShippingMethodController::class);
 
 
 

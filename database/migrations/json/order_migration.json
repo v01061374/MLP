@@ -35,9 +35,16 @@
   ],
   "foreign_keys": [
     {
-      "column": "customer_id",
+      "column": "cart_id",
       "references": "id",
-      "on": "customers",
+      "on": "carts",
+      "onDelete": "cascade",
+      "onUpdate": "cascade"
+    },
+    {
+      "column": "shippingMethod_id",
+      "references": "id",
+      "on": "shipping_methods",
       "onDelete": "cascade",
       "onUpdate": "cascade"
     }
@@ -47,11 +54,48 @@
       "name": "customer",
       "type": "belongsTo",
       "class": "App\\Customer"
+    },
+    {
+      "name": "shippingMethod",
+      "type": "hasOne",
+      "class": "App\\shippingMethod"
     }
   ],
   "validations": [
     {
-      "field": "customer_id",
+      "field": "cart_id",
+      "rules": "required"
+    },
+    {
+      "field": "cart_id",
+      "rules": "required"
+    },
+    {
+      "field": "addressDetails",
+      "rules": "required"
+    },
+    {
+      "field": "postalCode",
+      "rules": "required"
+    },
+    {
+      "field": "totalPrice",
+      "rules": "required"
+    },
+    {
+      "field": "shippingMethod_id",
+      "rules": "required"
+    },
+    {
+      "field": "isPaid",
+      "rules": "required"
+    },
+    {
+      "field": "isSent",
+      "rules": "required"
+    },
+    {
+      "field": "isDelivered",
       "rules": "required"
     }
   ]
