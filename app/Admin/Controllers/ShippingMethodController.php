@@ -74,7 +74,8 @@ class ShippingMethodController extends Controller
         return Admin::grid(ShippingMethod::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-
+            $grid->column('title');
+            $grid->column('price');
             $grid->created_at();
             $grid->updated_at();
         });
@@ -90,7 +91,8 @@ class ShippingMethodController extends Controller
         return Admin::form(ShippingMethod::class, function (Form $form) {
 
             $form->display('id', 'ID');
-
+            $form->text('title', 'Title');
+            $form->number('price', 'Price');
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
