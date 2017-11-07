@@ -12,6 +12,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use PhpParser\Node\Expr\PreDec;
 
 class ProductController extends Controller
 {
@@ -41,13 +42,23 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
-
-            $content->header('header');
-            $content->description('description');
-
-            $content->body($this->form()->edit($id));
-        });
+        $productStoreId = Product::with('store')->get()->find($id)->store['id'];
+        $productStoreOwnerId = Store::all()->find($productStoreId)['owner_id'];
+        if(
+            Admin::user()->inRoles(['administrator', 'supervisor'])
+            ||
+            $productStoreOwnerId == Admin::user()->id
+        ){
+            return Admin::content(function (Content $content) use ($id) {
+                $content->header(Product::all()->find($id)['title']);
+                $content->body($this->form()->edit($id));
+            });
+        }
+        else{
+            return Admin::content(function (Content $content) use ($id) {
+                $content->header('You Don`t Have The Permission');
+            });
+        }
     }
 
     /**
@@ -74,7 +85,14 @@ class ProductController extends Controller
     protected function grid()
     {
         return Admin::grid(Product::class, function (Grid $grid) {
-
+            if (!Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $userId = Admin::user()->id;
+                $grid->model()->where(function ($products) use ($userId){
+                    $products->whereHas('store', function ($stores) use ($userId){
+                       $stores->where('owner_id', $userId);
+                    });
+                });
+            }
             $grid->id('ID')->sortable();
             $grid->column('title');
             $grid->created_at();
@@ -98,7 +116,13 @@ class ProductController extends Controller
             $form->number('offPercent');
             $categories = Category::all()->pluck('title', 'id');
             $form->multipleSelect('categories')->options($categories);
-            $stores = Store::all()->pluck('title', 'id');
+
+            if (Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $stores = Store::all()->pluck('title', 'id');
+            }
+            else{
+                $stores= Store::all()->where('owner_id', Admin::user()->id)->pluck('title', 'id');
+            }
             $form->select('store_id', 'Store')->options($stores);
             $form->number('inStock', 'Available Quantity');
             $form->image('photo', 'Cover');
