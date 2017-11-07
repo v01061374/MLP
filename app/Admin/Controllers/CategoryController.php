@@ -90,7 +90,6 @@ class CategoryController extends Controller
     protected function form()
     {
         return Admin::form(Category::class, function (Form $form) {
-
             $form->display('id', 'ID');
             $form->text('title', 'Title');
             $form->image('photo');

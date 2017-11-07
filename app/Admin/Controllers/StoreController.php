@@ -24,9 +24,8 @@ class StoreController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
-
+            $content->header('Your Stores');
+            $content->description('List Of Stores Being Managed By You');
             $content->body($this->grid());
         });
     }
@@ -39,13 +38,25 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        if(
+            Admin::user()->inRoles(['administrator', 'supervisor'])
+            ||
+            Store::all()->find($id)['owner_id'] == Admin::user()->id
+        ){
+            return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+                $content->header(Store::all()->find($id)['title']);
 
-            $content->body($this->form()->edit($id));
-        });
+
+                $content->body($this->form()->edit($id));
+            });
+        }
+        else{
+            return Admin::content(function (Content $content) use ($id) {
+                $content->header('You Don`t Have The Permission');
+            });
+        }
+
     }
 
     /**
@@ -59,7 +70,6 @@ class StoreController extends Controller
 
             $content->header('header');
             $content->description('description');
-
             $content->body($this->form());
         });
     }
@@ -73,6 +83,9 @@ class StoreController extends Controller
     {
         return Admin::grid(Store::class, function (Grid $grid) {
 
+            if(!Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $grid->model()->where('owner_id', Admin::user()->id);
+            }
             $grid->id('ID')->sortable();
             $grid->column('title', 'Title');
             $grid->column('owner_id', 'Owner')->display(function ($owner_id) {
@@ -82,6 +95,30 @@ class StoreController extends Controller
             $grid->column('isVerified', 'Verified');
             $grid->created_at();
             $grid->updated_at();
+            if(Admin::user()->cannot('store.create')){
+                $grid->disableCreation();
+            }
+            if(Admin::user()->cannot('store.delete')){
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
+
+                        $actions->disableDelete();
+
+                });
+
+                $grid->tools(function (Grid\Tools $tools) {
+                    $tools->batch(function (Grid\Tools\BatchActions $actions) {
+                        $actions->disableDelete();
+                    });
+                });
+            }
+            if(Admin::user()->cannot('store.edit')){
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
+
+                    $actions->disableEdit();
+
+                });
+            }
+
         });
     }
 
@@ -95,10 +132,18 @@ class StoreController extends Controller
         return Admin::form(Store::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('title', 'Title');
-            $form->textarea('address', 'Address');
-            $form->number('lat', 'Latitude');
-            $form->number('lng', 'Longitude');
+            if(Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $form->text('title', 'Title');
+                $form->textarea('address', 'Address');
+                $form->number('lat', 'Latitude');
+                $form->number('lng', 'Longitude');
+            }
+            else{
+                $form->display('title', 'Title');
+                $form->display('address', 'Address');
+                $form->display('lat', 'Latitude');
+                $form->display('lng', 'Longitude');
+            }
             $form->radio('saturday', 'saturday')->options([
                 false => 'closed',
                 true => 'open'
@@ -194,12 +239,25 @@ class StoreController extends Controller
 //            });
 
             //should be changed to Sellers Or all
-            $users = Administrator::all()->pluck('name', 'id');
-            $form->select('owner_id', 'Owner')->options($users);
-            $form->radio('isVerified', 'Status')->options([
-                true => 'Verified',
-                false => 'Not Verified'
-            ]);
+
+            if(Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $users = Administrator::all()->pluck('name', 'id');
+                $form->select('owner_id', 'Owner')->options($users);
+                $form->radio('isVerified', 'Status')->options([
+                    true => 'Verified',
+                    false => 'Not Verified'
+                ]);
+            }
+            else{
+                $model = Store::all()->find(request()->route()->parameter('store'));
+                if($model->isVerified){
+                    $form->html('<p style="color: greenyellow;">Your Store Have Been Verified By Supervisors</p>');
+                }
+                else{
+                    $form->html('<p style="color: red;">Your Store Have Not Been Verified Yet By Supervisors!</p>');
+                }
+            }
+
         });
     }
 }
