@@ -74,7 +74,6 @@ class OrderController extends Controller
     protected function grid()
     {
         return Admin::grid(Order::class, function (Grid $grid) {
-
             $grid->id('ID')->sortable();
             $grid->column('customer_id');
             $grid->column('totalPrice');

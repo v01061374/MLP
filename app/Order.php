@@ -38,5 +38,8 @@ class Order extends Model
     public function shippingMethod(){
         return $this->hasOne('App\ShippingMethod', 'shippingMethod_id');
     }
+    public function products(){
+        return $this->hasManyThrough('App\Product','App\OrderItem','order_id', 'id');
+    }
     
 }

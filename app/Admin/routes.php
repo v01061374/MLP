@@ -18,6 +18,8 @@ Route::group([
     $router->resource('photos', PhotoController::class);
     $router->resource('carts', CartController::class);
     $router->resource('orders', OrderController::class);
+    $router->resource('orderItems', OrderItemsController::class);
+
     $router->resource('shippingMethods', ShippingMethodController::class);
 
 
