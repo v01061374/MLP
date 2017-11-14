@@ -40,13 +40,21 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        if (
+            Admin::user()->inRoles(['administrator', 'supervisor'])
+            ||
+            Customer::all()->where('userId',Admin::user()->id)->first()['id'] == Cart::all()->find($id)['customer_id']
+        ) {
+            return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
-
-            $content->body($this->form()->edit($id));
-        });
+                $content->header('header');
+                $content->body($this->form()->edit($id));
+            });
+        } else {
+            return Admin::content(function (Content $content) use ($id) {
+                $content->header('You Don`t Have The Permission');
+            });
+        }
     }
 
     /**
@@ -73,9 +81,22 @@ class CartController extends Controller
     protected function grid()
     {
         return Admin::grid(Cart::class, function (Grid $grid) {
-
-            $grid->id('ID')->sortable();
-
+            if(!Admin::user()->inRoles(['administrator', 'supervisor'])){
+                $customerId = Customer::all()->where('userId',Admin::user()->id)->first()['id'];
+                $grid->model()->where('customer_id', $customerId);
+                $grid->disableRowSelector();
+                $grid->disableExport();
+                $grid->disableCreation();
+                $grid->disableFilter();
+                $grid->disablePagination();
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
+                    $actions->disableDelete();
+                });
+            }
+            else{
+                $grid->id('ID')->sortable();
+//add customer info
+            }
             $grid->created_at();
             $grid->updated_at();
         });
@@ -89,14 +110,21 @@ class CartController extends Controller
     protected function form()
     {
         return Admin::form(Cart::class, function (Form $form) {
-            if (isset($form->customer_id)) {
-                $form->display('customer_id', 'Customer_id');
-                $customer = Customer::all()->find($form->customer_id)->get('firstName', 'lastName');
-                $form->html('Customer:' . $customer['firstName'] . ' ' . $customer['lastName']);
+            if(Admin::user()->inRoles(['administrator', 'supervisor'])){
+                if (isset($form->customer_id)) {
+                    $form->display('customer_id', 'Customer_id');
+                    $customer = Customer::all()->find($form->customer_id)->get('firstName', 'lastName');
+                    $form->html('Customer:' . $customer['firstName'] . ' ' . $customer['lastName']);
 
-            } else {
-                $customers = Customer::all()->pluck('lastName', 'id');
-                $form->select('customer_id', 'Customer')->options($customers);
+                } else {
+                    $customers = Customer::all()->pluck('lastName', 'id');
+                    $form->select('customer_id', 'Customer')->options($customers);
+                }
+            }
+            else{
+                $form->tools(function (Form\Tools $tools) {
+                    $tools->disableListButton();
+                });
             }
             $form->hasMany('items', function (Form\NestedForm $nestedForm) {
                 $products = Product::all()->pluck('title', 'id');

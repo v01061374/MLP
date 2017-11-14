@@ -46,8 +46,6 @@ class StoreController extends Controller
             return Admin::content(function (Content $content) use ($id) {
 
                 $content->header(Store::all()->find($id)['title']);
-
-
                 $content->body($this->form()->edit($id));
             });
         }
@@ -95,9 +93,7 @@ class StoreController extends Controller
             $grid->column('isVerified', 'Verified');
             $grid->created_at();
             $grid->updated_at();
-            if(Admin::user()->cannot('store.create')){
-                $grid->disableCreation();
-            }
+
             if(Admin::user()->cannot('store.delete')){
                 $grid->actions(function (Grid\Displayers\Actions $actions) {
 
@@ -250,11 +246,15 @@ class StoreController extends Controller
             }
             else{
                 $model = Store::all()->find(request()->route()->parameter('store'));
-                if($model->isVerified){
+
+                if($model && $model->isVerified){
                     $form->html('<p style="color: greenyellow;">Your Store Have Been Verified By Supervisors</p>');
                 }
-                else{
+                else if($model && !$model->isVerified){
                     $form->html('<p style="color: red;">Your Store Have Not Been Verified Yet By Supervisors!</p>');
+                }
+                else{
+                    $form->html('<p style="color: blue;">Your New Store Should Be Verified By Supervisors!</p>');
                 }
             }
 

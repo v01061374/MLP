@@ -18,6 +18,8 @@ class CreateCustomersTable extends Migration
             $table->string('lastName');
             $table->string('email');
             $table->string('phone');
+            $table->integer('userId')->unsigned();
+            $table->foreign('userId')->references('id')->on('admin_users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

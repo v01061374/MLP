@@ -3,13 +3,13 @@
 namespace App\Admin\Controllers;
 
 use App\Customer;
-
+use App\Http\Controllers\Controller;
+use Encore\Admin\Auth\Database\Administrator;
+use Encore\Admin\Controllers\ModelForm;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
-use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
 
 class CustomerController extends Controller
 {
@@ -26,7 +26,6 @@ class CustomerController extends Controller
 
             $content->header('header');
             $content->description('description');
-
             $content->body($this->grid());
         });
     }
@@ -39,13 +38,21 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        if (
+            Admin::user()->inRoles(['administrator', 'supervisor'])
+            ||
+            Customer::all()->find($id)['userId'] == Admin::user()->id
+        ) {
+            return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
-
-            $content->body($this->form()->edit($id));
-        });
+                $content->header('header');
+                $content->body($this->form()->edit($id));
+            });
+        } else {
+            return Admin::content(function (Content $content) use ($id) {
+                $content->header('You Don`t Have The Permission');
+            });
+        }
     }
 
     /**
@@ -72,12 +79,31 @@ class CustomerController extends Controller
     protected function grid()
     {
         return Admin::grid(Customer::class, function (Grid $grid) {
+            if (Admin::user()->isRole('customer')) {
+                $grid->model()->where(
+                    'userId', Admin::user()->id
+                );
+                $grid->column('firstName', 'First Name');
+                $grid->column('lastName', 'Last Name');
+                $grid->column('email', 'Email');
+                $grid->column('phone', 'Phone');
+                $grid->disableRowSelector();
+                $grid->disableExport();
+                $grid->disableCreation();
+                $grid->disableFilter();
+                $grid->disablePagination();
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
 
-            $grid->id('ID')->sortable();
-            $grid->column('full_name')->display(function () {
-                return $this->firstName . ' ' . $this->lastName;
-            });
-            $grid->column('email');
+                    $actions->disableDelete();
+
+                });
+            } else {
+                $grid->id('ID')->sortable();
+                $grid->column('full_name')->display(function () {
+                    return $this->firstName . ' ' . $this->lastName;
+                });
+                $grid->column('email');
+            }
             $grid->created_at();
             $grid->updated_at();
         });
@@ -91,14 +117,27 @@ class CustomerController extends Controller
     protected function form()
     {
         return Admin::form(Customer::class, function (Form $form) {
+            if (!Admin::user()->inRoles(['administrator', 'supervisor'])) {
+                $form->tools(function (Form\Tools $tools) {
+                    $tools->disableListButton();
+                });
+                $form->text('firstName', 'First Name');
+                $form->text('lastName', 'Last Name');
+                $form->text('email', 'Email');
+                $form->text('phone', 'Phone Number');
+            }
+            else{
+                $form->display('id', 'ID');
+                $form->text('firstName', 'First Name');
+                $form->text('lastName', 'Last Name');
+                $form->text('email', 'Email');
+                $form->text('phone', 'Phone Number');
+                $users = Administrator::all()->pluck('name', 'id');
+                $form->select('userId', 'Linked User')->options($users);
+                $form->display('created_at', 'Created At');
+                $form->display('updated_at', 'Updated At');
+            }
 
-            $form->display('id', 'ID');
-            $form->text('firstName', 'First Name');
-            $form->text('lastName', 'Last Name');
-            $form->text('email', 'Email');
-            $form->text('phone', 'Phone Number');
-            $form->display('created_at', 'Created At');
-            $form->display('updated_at', 'Updated At');
         });
     }
 }

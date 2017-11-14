@@ -95,6 +95,8 @@ class ProductController extends Controller
             }
             $grid->id('ID')->sortable();
             $grid->column('title');
+
+
             $grid->created_at();
             $grid->updated_at();
         });
@@ -123,6 +125,7 @@ class ProductController extends Controller
             else{
                 $stores= Store::all()->where('owner_id', Admin::user()->id)->pluck('title', 'id');
             }
+
             $form->select('store_id', 'Store')->options($stores);
             $form->number('inStock', 'Available Quantity');
             $form->image('photo', 'Cover');
