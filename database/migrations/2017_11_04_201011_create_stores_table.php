@@ -16,8 +16,11 @@ class CreateStoresTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('address');
+            $table->text('coverImage')->nullable();
+            $table->taxt('logo')->nullable();
             $table->double('lat');
             $table->double('lng');
+            $table->integer('zone_id')->unsigned();
             $table->integer('owner_id')->unsigned();
             $table->boolean('saturday');
             $table->boolean('sunday');

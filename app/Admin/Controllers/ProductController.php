@@ -117,7 +117,7 @@ class ProductController extends Controller
             $form->textarea('description');
             $form->number('offPercent');
             $categories = Category::all()->pluck('title', 'id');
-            $form->multipleSelect('categories')->options($categories);
+            $form->select('category_id')->options($categories);
 
             if (Admin::user()->inRoles(['administrator', 'supervisor'])){
                 $stores = Store::all()->pluck('title', 'id');
@@ -128,7 +128,7 @@ class ProductController extends Controller
 
             $form->select('store_id', 'Store')->options($stores);
             $form->number('inStock', 'Available Quantity');
-            $form->image('photo', 'Cover');
+            $form->image('photo', 'Cover')->removable();
             $form->hasMany('photos', function (Form\NestedForm $nestedForm){
                 $nestedForm->image('photo');
             });

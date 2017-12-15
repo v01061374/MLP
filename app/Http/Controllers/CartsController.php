@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\CartItem;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Cart;
 use Illuminate\Http\Request;
+use Encore\Admin\Facades\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class CartsController extends Controller
 {
@@ -120,5 +123,35 @@ class CartsController extends Controller
         Cart::destroy($id);
 
         return redirect('carts')->with('flash_message', 'Cart deleted!');
+    }
+    public function addCartItem(){
+
+        $prodId = \request()->post('productId');
+        $userId = Admin::user()['id'];
+
+
+        $cart = Cart::all()->where('customer_id', $userId)->first();
+
+        if(count($cart)){
+
+        }
+        else{
+
+            $cart = new Cart(['customer_id' => $userId]);
+
+            $cart->save();
+
+        }
+//        dd($cart['id']);
+        $cartItem = CartItem::all()->where('cart_id', $cart['id'])->where('product_id', $prodId)->first();
+        if($cartItem){
+            $cartItem['quantity'] = $cartItem['quantity'] + 1;
+            $cartItem->save();
+        }
+        else{
+            $cartItem = new CartItem(['cart_id' => $cart['id'], 'product_id' => $prodId, 'quantity' => 1]);
+            $cartItem->save();
+        }
+        return json_encode($cartItem);
     }
 }

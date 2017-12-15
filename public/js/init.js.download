@@ -1,0 +1,74 @@
+﻿var $holder;
+
+Intercom('onShow', function () {
+    if (!$holder) {
+        $holder = $('#intercom-container .intercom-app > span');
+    }
+    setTimeout(function () {
+        var x = $holder.find('iframe')[0];
+        var y = (x.contentWindow || x.contentDocument);
+        if (y.document) y = y.document;
+        var css = '';
+        var js = '';
+
+
+        css += 'body *{ font-family: Tahoma !important; line-height: 18px !important;}';
+        css += '#intercom-container .intercom-team-profile-response-delay-text {display: none}'
+
+
+        css += '#intercom-container .intercom-conversations-new-conversation-button span{visibility: hidden}';
+        css += '#intercom-container .intercom-conversations-new-conversation-button span:before { content: "شروع مکالمه"; visibility: visible; display: block; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); -moz-transform: translateX(-50%); background-image: url(https://js.intercomcdn.com/images/new-conversation.40b12105.png);background-repeat: no-repeat;background-position: right center; padding-right: 20px;}';
+        css += '#intercom-container .intercom-conversations-header-body{padding: 20px 80px 0 0; position: relative;}';
+        css += '#intercom-container .intercom-conversations-header-body:before{position: absolute; content:""; background: url(/img/general/logo-delino.png) no-repeat center center; background-size: cover; right: 20px; top: 18px; width: 40px; height: 40px;}';
+        css += '#intercom-container .intercom-conversations-header-body *{text-align: right; direction: rtl}';
+        css += '#intercom-container .intercom-conversations-header-title{position: relative;visibility: hidden}';
+        css += '#intercom-container .intercom-conversations-header-app-name{position: relative;visibility: hidden}';
+        css += '#intercom-container .intercom-conversations-header-title:before{visibility: visible; content: "مکالمه"; display: block; position: absolute; right: 0; top: 0;}';
+        css += '#intercom-container .intercom-conversations-header-app-name:before{visibility: visible; content: "با دلینو"; display: block;}';
+
+        css += '#intercom-container .intercom-block-paragraph{direction:rtl !important}';
+        css += '#intercom-container .intercom-conversation-summary-content-text{direction:rtl;}';
+        css += '#intercom-container .intercom-author-summary-name-from{text-align: right;}';
+        css += '#intercom-container .intercom-chat-snippet .intercom-snippet-body{text-align: right; direction: rtl}';
+        css += '#intercom-container .intercom-chat-snippet *{font-family: Tahoma !important;}';
+        
+        
+        /*
+        css += '#intercom-container .intercom-composer textarea{padding-left: 100px;padding-right: 30px; direction: rtl; text-align:right}';
+        css += '#intercom-container .intercom-composer textarea::-webkit-input-placeholder{text-align:right}';
+        css += '#intercom-container .intercom-composer textarea::-moz-placeholder{text-align:right}';
+        css += '#intercom-container .intercom-composer pre{padding-left: 100px;padding-right: 30px;}';
+        css += '#intercom-container .intercom-composer-buttons{right:auto;left: 30px;}';
+        css += '#intercom-container .intercom-team-profile-full-admin-name{height: 20px;}';
+        css += '#intercom-container .intercom-conversation-summary-content-text{direction: rtl}';
+        css += '#intercom-container .intercom-conversation-summary-body-author{height:15px}';
+        */
+
+        //js += 'document.getElementsByClassName("intercom-conversations-new-conversation-button")[0].innerHTML = "<span>شروع مکالمه</span>"';
+
+
+
+
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerText = css;
+        //var script = document.createElement('script');
+        //script.type = 'text/javascript';
+        //script.innerText = js;
+
+        y.head.appendChild(style);
+        //y.body.appendChild(script);
+        
+        setTimeout(function () {
+            $holder.css('opacity', 1);
+        }, 1)
+    }, 50);
+});
+
+
+
+Intercom('onHide', function () {
+    $holder.css('opacity', 0)
+});
+
+

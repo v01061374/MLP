@@ -34,3 +34,23 @@ Route::resource('shipping-method', 'ShippingMethodController');
 Route::resource('shipping-method', 'ShippingMethodController');
 Route::resource('orders', 'OrdersController');
 Route::resource('shipping-methods', 'ShippingMethodsController');
+
+Route::get('/')->uses('StoresController@indexLandingPage')->name('landing.index');
+
+Route::get('/stores')->uses('StoresController@index')->name('stores.index');
+Route::get('/store/{id}')->uses('StoresController@show')->name('stores.single');
+
+Route::get('/products/{id}')->uses('ProductsController@show')->name('products.single');
+
+Route::get('/user/login', function (){
+    return view('frontend.Auth.login');
+})->name('front.login.get');
+Route::post('/user/login')->uses('Auth\LoginController@postLogin')->name('front.login.post');
+
+
+
+
+
+Route::prefix('api')->group(function(){
+    Route::get('/cart/add','CartsController@addCartItem')->name('api.cart.add');
+});
