@@ -26,7 +26,7 @@ class OrderController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Orders');
             $content->description('description');
 
             $content->body($this->grid());
@@ -48,7 +48,7 @@ class OrderController extends Controller
         ) {
             return Admin::content(function (Content $content) use ($id) {
 
-                $content->header('header');
+                $content->header('Edit Order');
                 $content->body($this->form()->edit($id));
             });
         } else {
@@ -67,8 +67,7 @@ class OrderController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Add Order');
 
             $content->body($this->form());
         });
@@ -128,7 +127,7 @@ class OrderController extends Controller
                     $nestedForm->number('quantity', 'QTY');
                 });
                 $methods = ShippingMethod::all()->pluck('title', 'id');
-                $form->select('shippingMethod_id', 'Shipping Method')->options($methods);
+//                $form->select('shippingMethod_id', 'Shipping Method')->options($methods);
                 $form->number('totalPrice');
                 $form->radio('isPaid', 'Payment Status')->options([
                     false => 'Pending',

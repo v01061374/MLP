@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
+use App\Customer;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\OrderItem;
+use App\Product;
+use Encore\Admin\Facades\Admin;
 use App\Order;
 use Illuminate\Http\Request;
 
@@ -57,18 +61,18 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'cart_id' => 'required',
-			'cart_id' => 'required',
-			'addressDetails' => 'required',
-			'postalCode' => 'required',
-			'totalPrice' => 'required',
-			'shippingMethod_id' => 'required',
-			'isPaid' => 'required',
-			'isSent' => 'required',
-			'isDelivered' => 'required'
-		]);
+            'cart_id' => 'required',
+            'cart_id' => 'required',
+            'addressDetails' => 'required',
+            'postalCode' => 'required',
+            'totalPrice' => 'required',
+            'shippingMethod_id' => 'required',
+            'isPaid' => 'required',
+            'isSent' => 'required',
+            'isDelivered' => 'required'
+        ]);
         $requestData = $request->all();
-        
+
         Order::create($requestData);
 
         return redirect('orders')->with('flash_message', 'Order added!');
@@ -77,7 +81,7 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -91,7 +95,7 @@ class OrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\View\View
      */
@@ -106,25 +110,25 @@ class OrdersController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'cart_id' => 'required',
-			'cart_id' => 'required',
-			'addressDetails' => 'required',
-			'postalCode' => 'required',
-			'totalPrice' => 'required',
-			'shippingMethod_id' => 'required',
-			'isPaid' => 'required',
-			'isSent' => 'required',
-			'isDelivered' => 'required'
-		]);
+            'cart_id' => 'required',
+            'cart_id' => 'required',
+            'addressDetails' => 'required',
+            'postalCode' => 'required',
+            'totalPrice' => 'required',
+            'shippingMethod_id' => 'required',
+            'isPaid' => 'required',
+            'isSent' => 'required',
+            'isDelivered' => 'required'
+        ]);
         $requestData = $request->all();
-        
+
         $order = Order::findOrFail($id);
         $order->update($requestData);
 
@@ -134,7 +138,7 @@ class OrdersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -143,5 +147,54 @@ class OrdersController extends Controller
         Order::destroy($id);
 
         return redirect('orders')->with('flash_message', 'Order deleted!');
+    }
+
+
+    public function prepare()
+    {
+        $totalPrice = 0;
+        $userCart = [];
+
+        if (Admin::user()) {
+            $customerId = Customer::all()->where('userId', Admin::user()['id'])->first()['id'];
+
+            $userCart = Cart::with('items')->where('customer_id', $customerId)->first();
+            if ($userCart) {
+                $cartItems = $userCart['items'];
+
+                foreach ($cartItems as $item) {
+                    $product = Product::all()->find($item['product_id']);
+                    $cartProducts[$item['product_id']] = ['product' => $product, 'quantity' => $item['quantity']];
+                    $totalPrice = $totalPrice + intval($product['price']) * intval($item['quantity']);
+
+                }
+            }
+        }
+        return view('frontend.order.prepare', compact(['userCart', 'totalPrice']));
+    }
+
+    public function finalize()
+    {
+        $customer = $customerId = Customer::all()->where('userId', Admin::user()['id'])->first();
+        $order = new Order(
+            [
+                'customer_id' => $customer['id'],
+                'addressDetails' => \request()->post('address_details'),
+                'postalCode' => \request()->post('postalCode'),
+                'totalPrice' => intVal(\request()->post('totalPrice')) ,
+                'isPaid' => true,
+                'isSent' => false,
+                'isDelivered' => false,
+            ]);
+        $order->save();
+        $userCart = Cart::with('items')->where('customer_id', $customer['id'])->first();
+
+        $cartItems = $userCart['items'];
+        foreach ($cartItems as $item) {
+            $orderItem = new OrderItem(['order_id' => $order['id'], 'product_id' => $item['product_id'],'quantity' => $item['quantity']]);
+            $orderItem->save();
+            $item->delete();
+        }
+        return "done";
     }
 }

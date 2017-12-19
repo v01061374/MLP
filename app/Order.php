@@ -25,7 +25,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['customer_id','addressDetails', 'postalCode', 'totalPrice', 'shippingMethod_id', 'isPaid', 'isSent', 'isDelivered'];
+    protected $fillable = ['customer_id','addressDetails', 'postalCode', 'totalPrice', 'isPaid', 'isSent', 'isDelivered'];
     public function customer()
     {
         return $this->belongsTo('App\Customer');
@@ -35,9 +35,9 @@ class Order extends Model
     {
         return $this->hasMany('App\OrderItem', 'order_id');
     }
-    public function shippingMethod(){
-        return $this->hasOne('App\ShippingMethod', 'shippingMethod_id');
-    }
+//    public function shippingMethod(){
+//        return $this->hasOne('App\ShippingMethod', 'shippingMethod_id');
+//    }
     public function products(){
         return $this->hasManyThrough('App\Product','App\OrderItem','order_id', 'id');
     }

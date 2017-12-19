@@ -25,8 +25,7 @@ class CartController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Carts');
 
             $content->body($this->grid());
         });
@@ -47,7 +46,7 @@ class CartController extends Controller
         ) {
             return Admin::content(function (Content $content) use ($id) {
 
-                $content->header('header');
+                $content->header('Edit Cart');
                 $content->body($this->form()->edit($id));
             });
         } else {
@@ -66,7 +65,7 @@ class CartController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Add Cart');
             $content->description('description');
 
             $content->body($this->form());
@@ -118,6 +117,7 @@ class CartController extends Controller
 
                 } else {
                     $customers = Customer::all()->pluck('lastName', 'id');
+//                    dd($customers);
                     $form->select('customer_id', 'Customer')->options($customers);
                 }
             }

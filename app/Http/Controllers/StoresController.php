@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Category;
+use App\Customer;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -818,8 +819,9 @@ class StoresController extends Controller
         $userCart = [];
         $cartProducts = [];
         $totalPrice=0;
+        $customerId = Customer::all()->where('userId', Admin::user()['id'])->first()['id'];
         if(Admin::user()){
-            $userCart = Cart::with('items')->where('customer_id', Admin::user()['id'])->first();
+            $userCart = Cart::with('items')->where('customer_id', $customerId)->first();
             if($userCart){
                 $cartItems = $userCart['items'];
 
@@ -840,7 +842,7 @@ class StoresController extends Controller
 
         }
 
-        return view('frontend.stores.single', compact(['store', 'zones', 'categories', 'cartProducts', 'totalPrice']));
+        return view('frontend.stores.single', compact(['store', 'zones', 'categories', 'cartProducts', 'totalPrice', 'userCart']));
     }
 
     /**

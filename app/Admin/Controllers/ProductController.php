@@ -27,8 +27,7 @@ class ProductController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Products');
 
             $content->body($this->grid());
         });
@@ -70,7 +69,7 @@ class ProductController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Add Product');
             $content->description('description');
 
             $content->body($this->form());

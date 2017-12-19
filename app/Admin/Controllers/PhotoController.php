@@ -24,8 +24,7 @@ class PhotoController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Photos');
 
             $content->body($this->grid());
         });
@@ -41,7 +40,7 @@ class PhotoController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
+            $content->header('Edit Photo');
             $content->description('description');
 
             $content->body($this->form()->edit($id));
@@ -57,7 +56,7 @@ class PhotoController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Add Photo');
             $content->description('description');
 
             $content->body($this->form());

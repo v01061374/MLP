@@ -4693,7 +4693,7 @@ div#intercom-container > span {
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
-    background: url("/img/general/logo-default.png") no-repeat center center #e4e4e4;
+
     background-size: cover;
     -webkit-border-radius: 25%;
     -moz-border-radius: 25%;
@@ -7000,7 +7000,7 @@ div#intercom-container > span {
     border: 2px solid #fff;
     display: inline-block;
     overflow: hidden;
-    background: url(/img/general/logo-default.png) no-repeat center center #eef1f6;
+
     background-size: cover;
     -webkit-border-radius: 30%;
     -moz-border-radius: 30%;
@@ -7526,10 +7526,10 @@ div#intercom-container > span {
     left: 50%;
     top: 50%;
     width: 83px;
-    height: 30px;
+    height: 68px;
     margin-left: -41.5px;
-    margin-top: -15px;
-    overflow: hidden
+    margin-top: -42px;
+    overflow: hidden;
 }
 
 .main-header .logo img {
@@ -7678,9 +7678,12 @@ div#intercom-container > span {
 }
 
 .home-page .main-header .left-holder button.anc-rtn, .search-page .main-header .left-holder button.anc-rtn, .landing-page .main-header .left-holder button.anc-rtn, .company-page .main-header .left-holder button.anc-rtn {
-    display: none !important
+    color: white !important;
+    text-decoration: none;
 }
-
+button.anc-rtn a{
+    color: white;
+}
 .main-header .left-holder button.anc-rtn.show {
     display: inline
 }
@@ -13324,7 +13327,7 @@ div#intercom-container > span {
     border: 2px solid #fff;
     float: right;
     overflow: hidden;
-    background: url("/img/general/logo-default.png") no-repeat center center #eef1f6;
+
     background-size: cover;
     -webkit-border-radius: 30%;
     -moz-border-radius: 30%;
@@ -16229,7 +16232,7 @@ div#intercom-container > span {
     height: 60px;
     overflow: hidden;
     background-color: #fff;
-    background: url("/img/general/logo-default.png") no-repeat center center #eef1f6;
+
     background-size: cover;
     -webkit-border-radius: 30%;
     -moz-border-radius: 30%;
@@ -23398,9 +23401,9 @@ body.okayNav-loaded {
 
     .main-header .logo {
         width: 112px;
-        height: 40px;
-        margin-left: -56px;
-        margin-top: -20px
+        height: 92px;
+        margin-left: -55px;
+        margin-top: -60px;
     }
 
     .rest-page .main-header .logo {
@@ -25462,4 +25465,85 @@ body.okayNav-loaded {
 }
 .header-user-holder a{
     color: white;
+}
+
+#order-prepare, #user-signup{
+    margin-top: 20px;
+}
+#order-prepare #address{
+    resize: none;
+    float: right;
+    margin-top: 5px;
+    clear: right;
+    width: 300px;
+    margin-left: calc(50% - 150px);
+    margin-right: calc(50% - 150px);
+    direction: rtl;
+    font-size: small;
+    padding: 5px;
+}
+#order-prepare #postalCode{
+
+    float: right;
+    width: 300px;
+    margin-left: calc(50% - 150px);
+    margin-right: calc(50% - 150px);
+    margin-top: 5px;
+    font-size: small;
+    padding: 5px;
+    direction: rtl;
+
+}
+#order-prepare .btn-default{
+    float: left;
+    margin-top: 35px;
+    width: 100px;
+    margin-right: calc(50% - 50px);
+    margin-left: calc(50% - 50px);
+    margin-bottom: 20px;
+}
+#order-prepare-container .home-qu-s li{
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    direction: rtl;
+}
+@media only screen and (max-width: 768px) {
+    #order-prepare-container .home-qu-s li{
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    #order-prepare #address{
+
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+
+    }
+    #order-prepare #postalCode{
+
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+
+    }
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    direction: rtl;
+    text-align: right;
+}
+#user-signup-container .form-group input{
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+
+}
+#user-signup-container .form-group button{
+    background-color: #ef4123;
+    float: right;
+    width: 100 px;
+    margin-right: calc(50% - 50px);
 }

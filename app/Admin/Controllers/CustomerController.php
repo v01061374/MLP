@@ -24,8 +24,8 @@ class CustomerController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Customers');
+//            $content->description('description');
             $content->body($this->grid());
         });
     }
@@ -45,7 +45,7 @@ class CustomerController extends Controller
         ) {
             return Admin::content(function (Content $content) use ($id) {
 
-                $content->header('header');
+                $content->header('Edit Customer');
                 $content->body($this->form()->edit($id));
             });
         } else {
@@ -64,7 +64,7 @@ class CustomerController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Add Customer');
             $content->description('description');
 
             $content->body($this->form());

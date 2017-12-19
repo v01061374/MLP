@@ -16,7 +16,6 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-
     <link type="text/css" rel="stylesheet" href="{{asset('css/frontend.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css')}}">
     {{--<link type="text/css" rel="stylesheet" href="{{asset('/css/popModal.css')}}">--}}
@@ -440,17 +439,51 @@
 <body class="@yield('body-class')">
 {{--<button id="myBtn">Open Modal</button>--}}
 
-<header class="main-header" id="header"><a href="https://www.delino.com/" class="logo">
+<header class="main-header" id="header"><a href="/" class="logo" style="display: inline !important;">
 
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 221.729">
-            <path fill="#FFF"
-                  d="M222.105 22.813c6.626 0 10.746-5.37 9.798-11.997-.947-6.625-6.507-11.298-13.132-11.298-6.626 0-10.41 4.673-9.463 11.298.95 6.626 6.17 11.997 12.798 11.997zM341.688 133.18c-5.35-.112-10.512-.276-15.504-.435-8.117-.258-15.783-.502-23.314-.502-13.222 0-23.638.77-33.77 2.494-2.893.492-4.587 2.88-4.315 6.088.303 3.586 3.08 7.456 7.04 7.456.35 0 .703-.03 1.054-.09 9.062-1.54 18.728-2.29 29.55-2.29 14.544 0 41.052 2.21 41.052 2.21 3.59 0 5.58-2.733 5.613-5.93.045-4.27-2.92-8.904-7.407-9zM411.055 39.835c-10.05-8.356-20.71 8.994-10.545 13.876 11.632 5.587 38.235 40.81 25.493 43.34-25.54 3.68-42.696.67-42.696.67-10.778-.702-10.713 16.387 1.782 16.958 13.944.637 45.053.675 52.328-13.256 10.07-19.283-11.5-49.23-26.363-61.587z"></path>
-            <path fill="#FFF"
-                  d="M339.94 5.282c-1.105-1.508-4.72-5.48-8.982-5.295-6.013.26-8.295 4.243-7.435 10.26.474 3.306 2.345 5.63 4.518 8.228.08.108.16.22.24.327 34.532 54.995 36.334 79.186 19.175 80.07-19.32.995-27.876-37.334-40.576-51.176-3.333-3.632-6.533-3.37-8.95-2.792-2.868.687-6.407 4.752-5.51 8.775.138.62.784 1.883 1.807 3.572 13.573 29.117 10.513 40.966-2.163 41.62-19.32.994-27.876-37.335-40.576-51.177-2.742-2.99-5.393-3.34-7.594-3.048-5.247.4-8.898 5.236-8.13 9.345.303 1.63 1.72 5.1 2.03 5.884.01.026.02.043.03.068.652 1.313 18.917 38.566-3.93 38.566-.77 0-8.68-.102-12.538-.252-.552-.02-1.113-.257-1.45-.715-.232-.318-.372-.716-.368-1.174l-.013.082c-3.183-50.93-30.77-56.69-41.502-56.066-15.352.893-21.61 18.847-19.467 36.82 4.48 37.55 39.358 36.823 39.358 36.823h.005c1.775 0 3.804.23 2.025 3.234-6.486 10.954-17.77 20.04-25.914 23.495-1.674.71-2.86 2.208-3.273 4.23-1.45 7.126 6.4 12.84 12.792 9.816 9.937-4.7 24.918-22.24 30.792-36.645.64-1.78 1.982-2.797 3.77-2.797l-.007-.003 4.027.05c1.247.004 6.5.006 7.136.006 10.26.256 18.198-2.697 22.498-7.668 5.294-6.12 6.243-14.036 5.945-19.936-.055-1.11 1.43-1.52 1.96-.543 1.78 3.28 3.516 6.314 5.087 8.86 5.365 8.695 11.78 19.317 27.556 19.317 9.082 0 21.647-8.763 22.58-25.737.042-.754.06-1.526.058-2.313-.002-1.053 1.375-1.446 1.93-.553 2.957 4.752 4.882 8.637 5.21 9.252 4.897 9.16 9.837 19.35 25.614 19.35 9.082 0 21.647-8.762 22.58-25.736 1.574-28.572-27.12-80.75-30.344-84.428zM206.416 94.638c-.004.06-.012.122-.023.182-.152.84-.79 1.493-1.637 1.632-3.146.517-28.133.594-32.43-19.03-2.684-12.252 2.064-20.526 6.853-20.823 23.117-1.43 27.512 34.22 27.236 38.038zM1.426 103.646c-6.026 11.237 8.764 17.32 12.485 7.146 10.89-29.77 31.442-32.608 52.302-35.675 7.345-1.08 8.06-14.084-1.917-12.5-20.784 3.296-45.407 8.47-62.87 41.03zM640 86.277c0-4.193-3.264-7.446-7.288-7.267s-7.288 3.725-7.288 7.917c0 4.193 3.264 7.446 7.288 7.267S640 90.47 640 86.277z"></path>
-            <path fill="#FFF"
-                  d="M608.745 90.655c-517.612 227.472-540.124 46.7-548.54 23.36-7.14-19.81-25.106-5.445-20.234 7.935 12.12 33.284 45.57 104.858 166.27 99.472 151.603-6.765 355.48-97.93 406.98-118.586 1.704-.683 8.503-3.684 6.285-9.79-2.016-5.555-10.76-2.39-10.76-2.39z"></path>
-
-        </svg>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<path style="fill:#fff;" d="M491.797,348.594L266.656,229.656V214.64c0.094-0.016,0.188-0.047,0.297-0.078
+	c35.469-8.781,59.281-30.875,59.281-59.281c0-32.75-26.547-59.281-59.281-59.281c-30.234,0-56.516,22.125-59.109,51.781
+	c-0.078,0.438-0.125,0.906-0.125,1.375c0,0.062-0.016,0.125-0.016,0.188l0,0c0,5.875,4.781,10.656,10.672,10.656
+	s10.672-4.781,10.672-10.656h0.062c0.859-9.234,5.344-15.844,9.281-19.969c7.281-7.656,17.703-12.031,28.562-12.031
+	c20.922,0,37.938,17.016,37.938,37.938c0,7.984-3.328,15.312-9.922,21.75c-7.703,7.547-19.156,13.359-33.141,16.812
+	c0,0-16.203,5-16.484,5.109v3.703h-0.016v27L20.219,348.594C8.141,354.812,0,366.5,0,379.906C0,399.844,18.016,416,40.234,416
+	c0.406,0,1.203,0,1.203,0h429.141c0,0,0.797,0,1.203,0C494,416,512,399.844,512,379.906C512,366.5,503.875,354.812,491.797,348.594z
+	 M471.781,394.656h-1.203H41.438h-1.203c-10.234,0-18.891-6.75-18.891-14.75c0-4.938,3.234-9.562,8.656-12.375l0.094-0.031
+	l0.094-0.062l225.797-119.281l225.844,119.281l0.094,0.062l0.094,0.031c5.422,2.812,8.656,7.438,8.656,12.375
+	C490.672,387.906,482.016,394.656,471.781,394.656z"/>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+</svg>
     </a>
     <button class="anc-c transition-all round-small"><!-- has-qty -->
         <i class="fo fo-cart"></i>
@@ -478,8 +511,11 @@
     <div class="left-holder">
 
         <button class="anc-srch fo fo-search white"></button>
+        @if(!Encore\Admin\Facades\Admin::user())
+        @else
+            <button class="anc-rtn round-full white"><a href="{{route('front.order.prepare')}}">سبد خرید</a></button>
+        @endif
 
-        <button class="anc-rtn round-full white"><span>لیست رستورانها</span><i class="fo fo-angle-left"></i></button>
     </div>
 </header>
 @yield('content')
@@ -492,10 +528,10 @@
         <div class="btm-sec">
             <div class="row clearfix">
                 <div class="mini-nav">
-                    <div class="logo visible-md-ib visible-lg-ib">
-                        <img src="files_files/logo-delino.png" width="40"
-                             height="40" alt="لوگوی دلینو">
-                    </div>
+                    {{--<div class="logo visible-md-ib visible-lg-ib">--}}
+                        {{--<img src="files_files/logo-delino.png" width="40"--}}
+                             {{--height="40" alt="لوگوی دلینو">--}}
+                    {{--</div>--}}
                     <nav class="links transition-all">
                         <a href="http://blog.delino.com/" target="_blank">وبلاگ دلینو</a>
                         <a href="https://www.delino.com/about" data-page="about" title="درباره">درباره</a>
@@ -521,14 +557,7 @@
                 <p>تمامی لوگوها و اطلاعات رستوران ها با احترام متعلق به مالکین رستوران ها است و امتیاز استفاده از این
                     اطلاعات تنها برای دلینو مجاز است</p>
 
-                <ul class="app-links">
-                    <li><a href="https://goo.gl/qnLvn6" target="_blank" class="transition-all"><img
-                                    src="files_files/label-app-ios.png"
-                                    alt="دانلود اپلیکیشن iOS دلینو"></a></li>
-                    <li><a href="https://goo.gl/Ffr1l9" target="_blank" class="transition-all"><img
-                                    src="files_files/label-app-android.png"
-                                    alt="دانلود اپلیکیشن Android دلینو"></a></li>
-                </ul>
+
             </div>
         </div>
     </div>
@@ -562,83 +591,16 @@
     </button>
 
 
-    <div class="popup-welcome">
-        <div class="lightbox"></div>
-        <div class="content-holder">
-            <button class="anc-close" id="popup-welcome-close"><i class="fo fo-cross"></i> بستن پنجره</button>
-            <a href="https://www.delino.com/profile?show=invite" id="popup-invite">
-                <img class="visible-sm-ib visible-md-ib visible-lg-ib"
-                     src="files_files/popup-invite.png" alt="">
-                <img class="visible-xs-ib"
-                     src="files_files/popup-invite-small.png" alt="">
-            </a>
-        </div>
-    </div>
 
 
-    <svg id="stars" style="display: none;" version="1.1">
-        <symbol id="stars-full-star" viewBox="0 0 115 20">
-            <polygon points="10,0 13.1,6.6 20,7.6 15,12.8 16.2,20 10,16.6 3.8,20 5,12.8 0,7.6 6.9,6.6 "></polygon>
-        </symbol>
-        <symbol id="stars-half-star" viewBox="0 0 115 20">
-            <polygon points="10,16.6 10,0 6.9,6.6 0,7.6 5,12.8 3.8,20" fill="#f5a623 "></polygon>
-        </symbol>
-        <symbol id="stars-all-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-full-star"></use>
-            <use xlink:href="#stars-full-star" transform="translate(23)"></use>
-            <use xlink:href="#stars-full-star" transform="translate(46)"></use>
-            <use xlink:href="#stars-full-star" transform="translate(69)"></use>
-            <use xlink:href="#stars-full-star" transform="translate(92)"></use>
-        </symbol>
-        <symbol id="stars-0-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-all-star" fill="#d8d8d8 "></use>
-        </symbol>
-        <symbol id="stars-0-5-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-0-0-star"></use>
-            <use xlink:href="#stars-half-star"></use>
-        </symbol>
-        <symbol id="stars-1-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-0-0-star"></use>
-            <use xlink:href="#stars-full-star" fill="#f5a623 "></use>
-        </symbol>
-        <symbol id="stars-1-5-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-1-0-star"></use>
-            <use xlink:href="#stars-half-star" transform="translate(23)"></use>
-        </symbol>
-        <symbol id="stars-2-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-1-0-star"></use>
-            <use xlink:href="#stars-full-star" fill="#f5a623 " transform="translate(23)"></use>
-        </symbol>
-        <symbol id="stars-2-5-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-2-0-star"></use>
-            <use xlink:href="#stars-half-star" transform="translate(46)"></use>
-        </symbol>
-        <symbol id="stars-3-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-2-0-star"></use>
-            <use xlink:href="#stars-full-star" fill="#f5a623 " transform="translate(46)"></use>
-        </symbol>
-        <symbol id="stars-3-5-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-3-0-star"></use>
-            <use xlink:href="#stars-half-star" transform="translate(69)"></use>
-        </symbol>
-        <symbol id="stars-4-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-3-0-star"></use>
-            <use xlink:href="#stars-full-star" fill="#f5a623 " transform="translate(69)"></use>
-        </symbol>
-        <symbol id="stars-4-5-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-4-0-star"></use>
-            <use xlink:href="#stars-half-star" transform="translate(92)"></use>
-        </symbol>
-        <symbol id="stars-5-0-star" viewBox="0 0 115 20">
-            <use xlink:href="#stars-all-star" fill="#f5a623 "></use>
-        </symbol>
-    </svg>
+
+
 </footer>
 {{--<script src="./blouse_files/modernizr-3.3.1.js.download"></script>--}}
 {{--<script src="./blouse_files/l4.js.download"></script>--}}
 {{--<script src="./blouse_files/m2.js.download"></script>--}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{asset('js/main.js.download')}}"></script>
+{{--<script src="{{asset('js/main.js.download')}}"></script>--}}
 {{--<script src="{{asset('js/init.js.download')}}"></script>--}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

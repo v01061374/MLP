@@ -1,4 +1,12 @@
 <?php
+use Encore\Admin\Auth\Database\Administrator;
+use Encore\Admin\Auth\Database\Permission;
+use Encore\Admin\Auth\Database\Role;
+use Encore\Admin\Facades\Admin;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
+use Illuminate\Routing\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +55,22 @@ Route::get('/user/login', function (){
 })->name('front.login.get');
 Route::post('/user/login')->uses('Auth\LoginController@postLogin')->name('front.login.post');
 
+Route::get('/order/prepare')->uses('OrdersController@prepare')->name('front.order.prepare');
+Route::post('/order/finalize')->uses('OrdersController@finalize')->name('front.order.finalize');
+
 
 
 
 
 Route::prefix('api')->group(function(){
     Route::get('/cart/add','CartsController@addCartItem')->name('api.cart.add');
+    Route::get('/cart/remove','CartsController@removeCartItem')->name('api.cart.remove');
+
 });
+
+
+
+Route::get('/signup')->uses('Auth\RegisterController@signup')->name('front.user.signup');
+
+Route::post('/signup/submit')->uses('Auth\RegisterController@submit')->name('front.user.signup.submit');
+

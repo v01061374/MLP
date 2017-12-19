@@ -838,7 +838,7 @@
                 <section class="home-section home-links clearfix">
                     <div class="wrapper clearfix">
                         <header>
-                            <h2>آخرین فروشگاه ها</h2>
+                            <h2>جدیدترین فروشگاه ها</h2>
                         </header>
                         <div class="top-rest-holder clearfix" id="top-rest">
                             <ul>

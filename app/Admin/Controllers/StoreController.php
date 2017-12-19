@@ -65,7 +65,7 @@ class StoreController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
+            $content->header('Add Store');
             $content->description('description');
             $content->body($this->form());
         });
