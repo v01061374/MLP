@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Customer;
 use App\User;
 use App\Http\Controllers\Controller;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Auth\Database\Administrator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -59,7 +60,13 @@ class RegisterController extends Controller
     }
 
     public function signup(){
-        return view('frontend.Auth.signup');
+        if(Admin::user()){
+            return redirect()->back();
+        }
+        else{
+            return view('frontend.Auth.signup');
+        }
+
     }
     public function submit(Request $request){
         $email = $request->post('email');

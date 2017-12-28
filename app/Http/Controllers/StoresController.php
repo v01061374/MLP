@@ -742,6 +742,7 @@ class StoresController extends Controller
             $zone = $zones[$request->get('zone')];
         }
         $categoryId = $request->get('category');
+
         $activeCategory = [];
         $stores = Store::paginate($perPage);
         if (!empty($categoryId)) {

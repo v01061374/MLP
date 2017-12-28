@@ -60,10 +60,12 @@
         <div class="col-xs-4 col-md-offset-4">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>
+
         </div>
         <!-- /.col -->
       </div>
     </form>
+    <a style="width: 100%; text-align: center; display: inline-block; margin-top: 10px;" href="{{route('front.user.signup')}}">Not Registered Yet? Register!</a>
 
   </div>
   <!-- /.login-box-body -->
