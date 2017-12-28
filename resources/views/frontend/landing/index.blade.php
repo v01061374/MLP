@@ -720,7 +720,7 @@
                         </div>
                         <div class="keyword-search-holder">
                             <i class="fo fo-search"></i>
-                            <form method="get" action="https://www.delino.com/search/" id="frm-srch" class="show-tag">
+                            <form method="get" id="frm-srch" class="show-tag">
 
                                 <select style="width: 100%;" id="category-select" type="select" name="q"
                                         value="{{isset($activeCategory['id']) ? $activeCategory['id'] : -1}}">
@@ -730,56 +730,7 @@
                                     @endforeach
                                 </select>
                             </form>
-                            <div class="tag-list">
-                                <ul>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=economic" class="type-economic">
-                                            <span>مقرون به صرفه</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=chili" class="type-chili">
-                                            <span>تند</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=healthy" class="type-healthy">
-                                            <span>سالم</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=diet" class="type-diet">
-                                            <span>رژیمی</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=seafood" class="type-seafood">
-                                            <span>دریایی</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=local" class="type-local">
-                                            <span>محلی</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=breakfast" class="type-breakfast">
-                                            <span>صبحانه</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=kids" class="type-kids">
-                                            <span>کودک</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.delino.com/search?t=international"
-                                           class="type-international">
-                                            <span>بین المللی</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                     <button class="btn-default btn-search">جستجو</button>
