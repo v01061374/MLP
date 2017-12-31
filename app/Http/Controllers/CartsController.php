@@ -132,7 +132,6 @@ class CartsController extends Controller
         $userId = Admin::user()['id'];
         $customerId = Customer::all()->where('userId', $userId)->first()['id'];
 
-
         $cart = Cart::all()->where('customer_id', $customerId)->first();
 
         if(count($cart)){

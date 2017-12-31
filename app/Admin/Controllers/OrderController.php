@@ -126,7 +126,7 @@ class OrderController extends Controller
                     $nestedForm->select('product_id', 'Product')->options($products);
                     $nestedForm->number('quantity', 'QTY');
                 });
-                $methods = ShippingMethod::all()->pluck('title', 'id');
+//                $methods = ShippingMethod::all()->pluck('title', 'id');
 //                $form->select('shippingMethod_id', 'Shipping Method')->options($methods);
                 $form->number('totalPrice');
                 $form->radio('isPaid', 'Payment Status')->options([
@@ -161,24 +161,30 @@ class OrderController extends Controller
 //                dd($itemsHtml);
                 $form->html(
                     $itemsHtml,'Items');
+
                 if($order['isPaid']){
                     $form->html('Paid', 'Payment Status');
                 }
                 else{
                     $form->html('Pending', 'Payment Status');
                 }
-                if($order['isSent']){
-                    $form->html('Sent', 'Sending Status');
-                }
-                else{
-                    $form->html('Not Sent', 'Sending Status');
-                }
-                if($order['isDelivered']){
-                    $form->html('Delivered', 'Delivery Status');
-                }
-                else{
-                    $form->html('Not Delivered', 'Delivery Status');
-                }
+
+
+                    if($order['isSent']){
+                        $form->html('Sent', 'Sending Status');
+                    }
+                    else{
+                        $form->html('Not Sent', 'Sending Status');
+                    }
+                    if($order['isDelivered']){
+                        $form->html('Delivered', 'Delivery Status');
+                    }
+                    else{
+                        $form->html('Not Delivered', 'Delivery Status');
+                    }
+
+
+
                 $form->display('created_at', 'Created At');
             }
 //            $form->display('customer_id');

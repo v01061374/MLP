@@ -8037,7 +8037,9 @@ button.anc-rtn a{
 .main-footer {
     background-color: #231f20;
     color: #fff;
-    padding: 0 0 10px
+    padding: 0 0 125px;
+    min-height: 145px;
+
 }
 
 .main-footer:before, .main-footer:after {

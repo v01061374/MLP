@@ -116,7 +116,7 @@ class ProductController extends Controller
             $form->textarea('description');
             $form->number('offPercent');
             $categories = Category::all()->pluck('title', 'id');
-            $form->select('category_id')->options($categories);
+            $form->select('category_id', 'Category')->options($categories);
 
             if (Admin::user()->inRoles(['administrator', 'supervisor'])){
                 $stores = Store::all()->pluck('title', 'id');

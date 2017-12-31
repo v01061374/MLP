@@ -125,18 +125,14 @@ class OrderItemsController extends Controller
             else{
                 $form->html('Pending', 'Payment Status');
             }
-            if($orderItem['isSent']){
-                $form->html('Sent', 'Sending Status');
-            }
-            else{
-                $form->html('Not Sent', 'Sending Status');
-            }
-            if($orderItem['isDelivered']){
-                $form->html('Delivered', 'Delivery Status');
-            }
-            else{
-                $form->html('Not Delivered', 'Delivery Status');
-            }
+            $form->radio('isSent', 'Sending Status')->options([
+                false => 'Pending',
+                true => 'Sent'
+            ]);
+            $form->radio('isDelivered', 'Delivery Status')->options([
+                false => 'Pending',
+                true => 'Delivered'
+            ]);
             $form->display('created_at', 'Created At');
 
         });
